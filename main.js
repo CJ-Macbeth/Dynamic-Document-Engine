@@ -138,7 +138,7 @@ function init () {
 			return await fsp.readFile(Path).catch(async E => {
 				return await fsp.readFile(path.join(__dirname, 'Uncontrolled_Figures', 'UNCONTROLLED_FIGURE.1.png'))
 			}).then(File => new Response(File)).catch(E => { return 'An unexpected error prevented loaing the requested figure'; });
-		} else return await fsp.readFile(Request_URL.pathname).then(File => new Response(File)).catch(E => new Response('<h1>FAILED TO OPEN DOCUMENT</h1>'));
+		} else return await fsp.readFile(path.normalize(Request_URL.pathname)).then(File => new Response(File)).catch(E => new Response('<h1>FAILED TO OPEN DOCUMENT</h1>'));
 	});
 	let window = new electron.BrowserWindow({ webPreferences: {
 		nodeIntegration: false,
