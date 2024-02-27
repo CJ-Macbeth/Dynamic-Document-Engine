@@ -127,6 +127,7 @@ function init () {
 		let Request_URL = new URL(request.url);
 		let Parent_Directory = path.dirname(Request_URL.pathname).replace(/\/$/, '');
 		let File = path.basename(Request_URL.pathname);
+		console.log('here: ', Request_URL.pathname, path.normalize(Request_URL.pathname));
 		if (!Open_Documents.has(Parent_Directory)) return new Response('FAILED TO OPEN DOCUMENT');
 		else if (File.match(/^UNCONTROLLED_FIGURE.\d+/)) {
 			let Path = path.join(Parent_Directory, 'Uncontrolled_Figures', File);
