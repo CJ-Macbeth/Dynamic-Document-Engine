@@ -1,0 +1,215 @@
+:root {
+	--black: #000;
+	--background-color: #0000;
+	--main-color: #0e313e;
+	--secondary-color: #3f7b8f;
+	--highlight: #3e350e;
+	--tooltip: #AAA;
+}
+html {
+	font-size: 16px;
+}
+#Container {
+	user-select:none;
+	position: relative;
+	width: 50em;
+	padding: 1rem;
+	box-shadow: 5px 5px 10px grey;
+	font-size: 1rem;
+	margin-right: 5em;
+}
+.Open-Image-Box {
+	background: #0009;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	z-index: 4;
+}
+.Open-Image {
+	max-width: 90vw;
+	max-height: 90vh;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); 
+}
+.Grey-Image {
+	opacity: .2;
+}
+#Resize {
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 5px;
+	background: #FFF;
+	cursor: ew-resize;
+}
+.Sticky-Banner-Warning {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	color: white;
+	font-weight: bold;
+	font-size: 2rem;
+	text-align: center;
+	padding: .25em;
+	width: calc(100% - .5em);
+	background: red;
+	animation: 2s infinite banner;
+	margin-bottom: 1rem;
+}
+@keyframes banner {
+	25% {
+		background: #FA0;
+	}
+	50% {
+		background: #FA0;
+	}
+}
+h1 {
+	font-size: 2rem;
+	margin: 0;
+	padding: .5em;
+	color: white;
+	background: var(--black);
+}
+.Variable {
+	font-size: 1rem;
+	vertical-align: top;
+	display: inline-block;
+	margin: 1em;
+}
+.Variable th {
+	background: var(--main-color);
+	color: white;
+	padding: .25em;
+}
+.Variable td {
+	color: var(--main-color);
+	padding: .25em;
+}
+.Element {
+	color: var(--black);
+	background: var(--background-color);
+	position: relative;
+	z-index: 1;
+}
+.Active .Element.Selected {
+	--black: #330;
+	--background-color: #FFD;
+	--main-color: #660;
+	--secondary-color: #AA0;
+}
+.Active .Element.Waypoint {
+	outline: 5px solid orange;
+	z-index: 2;
+}
+.Active .Element:hover {
+/*	
+	--black: #300;
+	--background-color: #FDD;
+	--main-color: #600;
+	--secondary-color: #A00;
+*/
+	--black: #330;
+	--background-color: #FFD;
+	--main-color: #660;
+	--secondary-color: #AA0;
+}
+h2 {
+	font-size: 1.5rem;
+	margin: 0;
+	padding: .5em;
+	color: white;
+	background: var(--main-color);
+}
+h3 {
+	font-size: 1.25rem;
+	margin: 0;
+	padding: .5em;
+	color: white;
+	background: var(--secondary-color);
+}
+h4 {
+	font-size: 1.25rem;
+	margin: 0;
+	padding: .25em;
+	color: var(--secondary-color);
+	border: .25em solid var(--secondary-color);
+	background: #0000;
+
+}
+p {
+	display: inline;
+	font-size: 1rem;
+	margin: 0;
+	padding: 0;
+}
+.Tooltip {
+	color: var(--tooltip);
+}
+.Tooltip:hover {
+	color: var(--black);
+}
+.Counterinstruction {
+	color: red;
+}
+.Image > img {
+	width: 100%;
+	display: block;
+	margin: auto
+}
+.Table > table {
+	font-size: 1rem;
+	margin: auto;
+	table-layout: fixed;
+	border-style: hidden;
+	max-width: 100%;
+}
+.Table th {
+	background: var(--secondary-color);
+	padding: .5em;
+	color: white;
+}
+.Table td {
+	font-size: 1rem;
+	padding: .25em;
+	border: .125em solid var(--secondary-color);
+}
+.Number {
+	display: block;
+	text-align: right;
+	font-weight: bold;
+	color: var(--secondary-color);
+}
+.Number.Num_Meta {
+	color: black;
+}
+.Number.Num_Sec {
+	color: var(--main-color);
+}
+.Number.Inline {
+	display: block;
+	text-align: right;
+	color: #DDD;
+}
+.Table .Number.Inline {
+	display: block;
+	float: none;
+	color: var(--secondary-color);
+	border: none;
+	text-align: left;
+}
+.Image .Number {
+	display: block;
+	color: var(--secondary-color);
+}
+.Condition {
+	display: none;
+}

@@ -1,0 +1,232 @@
+DOCUMENT-LEVEL: Dynamic_Document_File.js
+file:new - path
+file:open - path
+file:close - window
+file:data - window
+
+REVISION-LEVEL: Dyanmic_Document_Link.js
+revision:new
+revision:open - revision
+revision:close - instance
+revision:delete - revision
+revision:publish - revision
+
+VIEWING: Dynamic_Document_View.js
+view:condition - conditions (set var vals)
+view:navigate - element
+view:select - element
+view:data - query (get meta, conditions, or elements for work/copy)
+
+EDIT-META: Dynamic_Document_Edit.js
+meta:title - text
+meta:sign - contribution, name
+
+EDIT-CONDITIONS: Dynamic_Document_Edit.js
+condition:new - name, values
+condition:modify - variable, name, values
+condition:move - variable, target
+condition:remove - variable
+condition:depend - element, conditions
+
+EDIT-CONTENTS: Dynamic_Document_Edit.js
+edit:new - type, options
+edit:modify - element, options
+edit:move - element, target, nest
+edit:remove - element, nest
+
+
+
+
+
+
+
+
+[CHAOS BELOW]#########################################################
+
+file:new
+file:open
+file:close 
+file:meta
+
+edit:new
+edit:add
+edit:modify
+edit:move
+edit:remove
+edit:paste
+edit:undo
+edit:redo
+edit:save
+edit:save-image
+edit:publish
+edit:delete
+edit:toggle
+
+view:waypoint
+view:navigate
+view:revision 
+view:unconditional
+view:select
+view:deselect
+view:selections
+view:copy
+view:decondition
+view:toggle
+
+Document Title/
+  CONTROLLED
+  UNCONTROLLED.1.html
+  2024-01-19.1.html
+  Figures/
+    FIGURE-1.png
+  Uncontrolled_Figures/
+    UNCONTROLLED_FIGURE-1.png
+  VERSION
+  Dynmaic_Document_View.js
+  Dynamic_Document_Edit.js
+  Dynamic_Document.css
+
+Meta {
+  Path: ""
+  Current_Revision: ""
+  Uncontrolled_Revisions: [""]
+  Controlled_Revisions: [""]
+  Figures: [""]
+  Uncontrolled_Figures: [""]
+  Warnings: [""]
+}
+
+Dynamic_Document_File.js
+-- file:new  path -> path (creates but does not open instance)
+-- file:open  path
+-- file:meta  path
+-- edit:new  path (revision)
+-- edit:save  path revision json
+-- edit:publish  path revision
+-- edit:delete  path revision
+
+main.js
+-- file:open
+-- edit:copy json 
+-- edit:paste
+
+main.js [ipc]
+-- file:new
+-- file:open
+-- file:meta  [window]
+-- edit:new  (revision) [window]
+-- edit:copy  json [window]
+-- edit:paste  [window]
+-- edit:save  revision json [window]
+-- edit:publish  revision [window]
+-- edit:delete  revision [window]
+
+launcher.preload.js
+-- ipc file:new
+-- ipc file:open
+
+launcher.js [mgui]
+-- file:close
+-- file:new
+-- file:open
+
+application.preload.js
+-- file:new
+-- file:open
+-- file:meta
+-- edit:new  (revision)
+-- edit:copy  json
+-- edit:paste
+-- edit:save  revision json
+-- edit:publish  revision
+-- edit:delete  revision
+
+application.js
+-- file:close
+-- edit:undo
+-- edit:redo
+-- edit:toggle
+-- view:revision  revision
+-- view:toggle
+
+-- editing bay creation and output
+-- undo and redo log
+
+application.js [postMessage]
+-- edit:add  index options
+-- edit:modify  index options
+-- edit:move  index target nested
+-- edit:remove  index
+-- edit:copy
+-- edit:paste  json indexes
+-- view:navigate  index
+-- view:select  (numbering)
+-- view:deselect  (numbering)
+-- view:selections
+
+application.js [mgui]
+-- file:new
+-- file:open
+-- file:close -> confirm
+-- edit:new
+-- edit:copy
+-- edit:paste
+-- edit:undo
+-- edit:redo
+-- edit:save
+-- edit:publish -> confirm
+-- edit:delete -> confirm
+-- edit:toggle
+-- view:revision -> revisions
+-- view:unconditional
+-- view:select -> numbering
+-- view:deselect -> numbering
+-- view:decondition
+-- view:toggle
+
+Dynamic_Document_View.js
+-- edit:copy
+-- view:navigate up 
+-- view:select  (numbering)
+-- view:deselect  (numbering)
+-- view:selections
+
+Dynamic_Document_Edit.js
+-- edit:navigate up 
+-- edit:add  options index
+-- edit:modify  index options
+-- edit:move  index target
+-- edit:remove index
+-- edit:paste  json indexes
+
+BIG TODO
+-- finish editing functionality - window.js, Link, Edit, View
+-- finalize full scope of functionality with testing
+-- repair/combine/break-apart css into application, view, and maybe mgui
+-- implement all reccomended security (AND FUCKING DISABLE file://)
+-- implement semver and proper versioning
+-- implement comprehensive error handling
+-- create good in-code documentation
+-- separate submodules into their own (properly revisioned) repos
+-- create comprehensive README.md for documentation
+-- create the help menu to read the .md file in the program, under mgui help
+-- create the repo, with versioning and other fine-tuning
+
+TODO
+-- change all edit:copy references to view:copy
+-- autonavigate to title when opening revision
+-- change mgui so that an action can glow after being changed, to indicate success AND change functionality (glow on creation setting?)
+-- create a custom symbol for the dynamic document engine (or its line of software?) (symbol for one-off projects?)
+-- mgui: display the current key combination being held
+-- system for automatically naming the most up-to-date revision something standardized (so that names don't need to be changed after rev changes)
+-- implement and use application version, document version, and revision compatibility checking
+-- check/err wave - reporting, closing the program, error logs
+-- init function: replace title in head with title from h1
+-- create a function to automatically skim the elements of UNCONTROLLED files, and remove unused figures (during delete action)
+-- add functionality for the title element (just a sinle <h1> at the top of the document)
+-- add automatic generation of the table of contents (after rendering visibilities)
+-- add validating the placement of the Variable elements, and thier conditions (if allowable)
+-- create an in-development outline for future versions (and include page structure in it)
+-- fix insecure content security policy
+-- fix mgui reporting (glowing green or red, move report to bottom if navigated?)
+-- ensure all areas where inputs are passed around are properly sanitized, to prevent the troubles

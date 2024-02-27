@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dynamic Document Engine</title>
+		<meta charset="UTF-8">
+		<script src="HTMLS.js"></script>
+		<script src="index.js"></script>
+		<link rel="stylesheet" href="index.css"/>
+	</head>
+	<body onload="init()">
+		<div id="Page">
+			<div id="Resize"></div>
+			<h1>Document Title</h1>
+			<p id="Description">Document description, a full sentence or paragraph</p>
+			<table class="Authors">
+				<tr><td>CJ Macbeth</td></tr>
+				<tr><td>Ian Archibald</td></tr>
+			</table>
+				<div id="Variables">
+				<table class="Variable">
+						<tr><th>Variable 1</th></tr>
+					<tr><td><input onchange="Draw()" type="radio" name="Variable 1" value="Value 1"/>Value 1</td></tr>
+					<tr><td><input onchange="Draw()" type="radio" name="Variable 1" value="Value 2"/>Value 2</td></tr>
+				</table>
+				<table class="Variable">
+					<tr><th>Variable 2</th></tr>
+					<tr><td><input onchange="Draw()" type="radio" name="Variable 2" value="Value 1"/>Value 1</td></tr>
+					<tr><td><input onchange="Draw()" type="radio" name="Variable 2" value="Value 2"/>Value 2</td></tr>
+				</table>
+			</div>
+			<h2 class="Section Element" data-type="Section" data-conditions="{&quot;Conditions&quot;:[{&quot;Variable 1&quot;:&quot;Value 2&quot;}]}">Secret Section</h2>
+			<h3 class="Subsection Element" data-type="Subsection">Secret Subsection</h3>
+			<h4 class="Step Element" data-type="Step">Secret Step</h4>
+			<p class="Instruction Element" data-type="Instruction">Secret line of instruction. Keep it secret, keep it safe.</p>
+			<p class="Tooltip Element" data-type="Tooltip">A single sentence tooltip, a helpful hint.</p>
+			<h2 class="Section Element" data-type="Section">Section</h2>
+			<h3 class="Subsection Element" data-type="Subsection">Subsection</h3>
+			<h4 class="Step Element" data-type="Step">Step</h4>
+			<p class="Instruction Element" data-type="Instruction">A single sentence line of instruction.</p>
+			<p class="Tooltip Element" data-type="Tooltip">A single sentence tooltip, a helpful hint.</p>
+			<img class="Image Element" src="BORG.svg" data-type="Image"/>
+			<table class="Table Element" data-type="Table">
+				<tr><th>Header 1</th><th>Header 2</th></tr>
+				<tr><td>Cell A1</td><td>Cell A2</td></tr>
+				<tr><td>Cell B1</td><td>Cell B2</td></tr>
+			</table>
+		</div>
+	</body>
+</html>

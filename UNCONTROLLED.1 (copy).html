@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head>
+		<title>Dynamic Document</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="index.css">
+		<script src="Dynamic_Document_View.js"></script>
+	<script src="Dynamic_Document_Edit.js"></script><script>var Viewer, Editor; function init() {
+			Alert = window.self !== window.top ? () => window.top.postMessage('Navigation', '*') : null;
+			Viewer = new Dynamic_Document_Viewer(document.getElementById('Container'), false, Alert);
+			Editor = new Dynamic_Document_Editor(Viewer);
+			window.addEventListener('message', Message => {
+				try {
+					Message.ports[0].postMessage({status: true, result: Editor.API(Message.data.Command, Message.data.Options)});
+				} catch (E) {
+					Message.ports[0].postMessage({status: false, result: E});
+				}
+		})}</script></head>
+	<body onload="init()"><div id="Container"><div class="Element Meta" style="display: block;"><h1>TITLE</h1></div><span class="Number">0</span><div class="Element Section" style="display: block;"><h2>First Section</h2></div><span class="Number">1</span><div class="Element Subsection" style="display: block;"><h3>First Subsection</h3></div><span class="Number">1.1</span><div class="Element Step" style="display: block;"><h4>Step One</h4></div><span class="Number">1.1.1</span><div class="Element Instruction" style="display: block;"><p>A single, detailed line of instruction</p></div><span class="Number">1.1.1.1</span><div class="Element Tooltip" style="display: block;"><p>A tooltip to help contextualize the given information</p></div><span class="Number">1.1.1.2</span><div class="Element Counterinstruction" style="display: block;"><p>A counterinstruction, don't do whatever it is this says</p></div><span class="Number">1.1.1.3</span><div class="Element Section" style="display: block;"><h2>Section 2</h2></div><span class="Number">2</span><div class="Element Table" style="display: block;"><table><tbody><tr><th>Head1</th><th>Head 2</th></tr><tr><td>Cell</td><td>Cell</td></tr></tbody></table></div><span class="Number">T 2.0.0.1</span><div class="Element Image Waypoint" style="display: block;"><img src="FIGURE.1.png"></div><span class="Number">I 2.0.0.2</span></div></body></html>

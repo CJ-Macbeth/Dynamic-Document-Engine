@@ -1,0 +1,127 @@
+body::-webkit-scrollbar {
+	display: none;
+}
+body {
+	margin: 0;
+}
+#Workspace {
+	position: relative;
+	width: calc(100vw - 15rem);
+	height: 100vh;
+	padding-left: 2rem;
+}
+#Menu-Virtual {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	width: 15rem;
+	height: 100vw;
+}
+#Menu {
+	user-select: none;
+	font-size: .75rem;
+	width: 15rem;
+	height: 100vh;
+	background: #EEE;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	box-shadow: 1px 0 5px #666;
+}
+#Edit {
+	position: fixed;
+	bottom: 0;
+	left: 15rem;
+	width: calc(100vw - 15rem);
+	background: #030;
+}
+#View {
+	top: 0;
+	position: fixed;
+	right: 0;
+	width: calc(100vw - 15rem);
+	height: 100%;
+}
+.MGUI-Action {
+	width: 19.5em;
+	background: #999;
+	padding: .25em;
+	word-break: break-word;
+	border-bottom: 1px solid #EEE;
+	text-align: right;
+	/* break word */
+}
+.MGUI-Button {
+	background: #666;
+}
+.MGUI-Button:focus .MGUI-Action-Name {
+	color: #666;
+}
+.MGUI-Button:focus .MGUI-Action-Description {
+	color: #666;
+}
+.MGUI-Button:hover {
+	color: #666;
+	background: white;
+}
+.MGUI-Button:hover .MGUI-Action-Name {
+	color: #666;
+}
+.MGUI-Button:hover .MGUI-Action-Description {
+	color: #666;
+}
+.MGUI-Glow-True {
+	animation: .25s 1 glowtrue;
+}
+.MGUI-Glow-False {
+	animation: .25s 1 glowfalse;
+}
+@keyframes glowtrue {
+	50% {
+		background: #6F6;
+	}
+}
+@keyframes glowfalse {
+	50% {
+		background: #F66;
+	}
+}
+.MGUI-Button:focus {
+	color: #666;
+	background: white;
+	outline: none;
+}
+.MGUI-Action-Name {
+	display: inline-block;
+	padding: .25em;
+	color: white;
+	float: left;
+}
+.MGUI-Action-Name:only-child {
+	display: block;
+	float: inherit;
+	text-align: left;
+}
+.MGUI-Action-Symbol {
+	display: inline-block;
+	height: 1em;
+	float: left;
+}
+.MGUI-Action-Keybinds {
+	display: inline-block;
+	padding: .25em;
+	color: #CCC;
+}
+.MGUI-Action:hover .MGUI-Action-Keybinds {
+	color: #666;
+}
+.MGUI-Action-Keybind {
+	display: inline-block;
+	margin-left: .5em;
+}
+.MGUI-Action-Description {
+	margin: .5em;
+	color: #DDD;
+	text-align: left;
+}

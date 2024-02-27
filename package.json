@@ -1,0 +1,23 @@
+{
+  "name": "dynamic-document-engine",
+  "version": "1.0.0",
+  "description": "An engine for creating revision-controlled dynamic documents",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CJ-Macbeth/Dynamic-Document-Engine.git"
+  },
+  "author": "CJ Macbeth",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/CJ-Macbeth/Dynamic-Document-Engine/issues"
+  },
+  "homepage": "https://github.com/CJ-Macbeth/Dynamic-Document-Engine#readme",
+  "dependencies": {
+    "electron": "^28.1.4",
+    "jsdom": "^24.0.0"
+  }
+}
