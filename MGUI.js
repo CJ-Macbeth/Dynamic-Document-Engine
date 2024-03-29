@@ -152,10 +152,10 @@ MGUI.prototype.Submenu = function (State, Bind) {
 	}
 	for (let i = State, l = 4; i < l; i++) if (!Skip.has(i) && MGUI.Filter[State].includes(i)) for(let i2 = 0, o2 = Object.keys(Menu[i]), l2 = o2.length; i2 < l2; i2++) if(!Recipt.includes(o2[i2])) {
 		if (Menu[i][o2[i2]] !== null) this.Workspace.appendChild(Menu[i][o2[i2]]);
-		for (let i3 = i + 1; i3 < 4; i3++) if(!Skip.has(i3) && o2[i2] in Menu[i3]) this.Workspace.appendChild(Menu[i3][o2[i2]]);
+		for (let i3 = i + 1; i3 < 4; i3++) if(!Skip.has(i3) && MGUI.Filter[State].includes(i3) && o2[i2] in Menu[i3]) this.Workspace.appendChild(Menu[i3][o2[i2]]);
 		Recipt.push(o2[i2]);
 	}
-	if (State == 0)for(let i = 0, l = Menu[4].length; i < l; i++)this.Workspace.appendChild(Menu[4][i]);
+	if (State == 0) for (let i = 0, l = Menu[4].length; i < l; i++) this.Workspace.appendChild(Menu[4][i]);
 	return true;
 }
 MGUI.Menu = function(NN, NA, CN, CA, XX) {
@@ -199,6 +199,11 @@ MGUI.Menu.prototype.Adjust = function (State, Key, Options) {
 		action.setAttribute('tabindex','0');
 		action.setAttribute('onkeyup', 'if(event.key==\'Enter\')this.click()');
 		action.addEventListener('click', E => this.Parent.Submenu(State + n, true));
+		let keybinds = document.createElement('div');
+		keybinds.setAttribute('class', 'MGUI-Action-Keybinds');
+		keybinds.innerHTML = MGUI.Keybinds[State]+`<div class="MGUI-Action-Keybind">${Key}</div></div>`;
+		header.appendChild(keybinds);
+
 	} else if ('Function' in Options) {
 		action.Function = Options.Function;
 		action.setAttribute('class', 'MGUI-Action MGUI-Button');

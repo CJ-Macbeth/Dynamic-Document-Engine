@@ -125,7 +125,9 @@ function init () {
 	});
 	electron.protocol.handle('document',async request=>{
 		let Request_URL = new URL(request.url);
-		let Parent_Directory = path.dirname(Request_URL.pathname).replace(/\/$/, '');
+		Request_URL.pathname = path.normalize(Request_URL.pathname);
+		let Parent_Directory = path.normalize(path.dirname(Request_URL.pathname).replace(/\/$/, ''));
+		if (Parent_Directory[0] == '\\') Parent_Directory = Parent_Directory.substring(2);
 		let File = path.basename(Request_URL.pathname);
 		console.log('here: ', Request_URL.pathname, path.normalize(Request_URL.pathname));
 		if (!Open_Documents.has(Parent_Directory)) return new Response('FAILED TO OPEN DOCUMENT');
@@ -139,7 +141,7 @@ function init () {
 			return await fsp.readFile(Path).catch(async E => {
 				return await fsp.readFile(path.join(__dirname, 'Uncontrolled_Figures', 'UNCONTROLLED_FIGURE.1.png'))
 			}).then(File => new Response(File)).catch(E => { return 'An unexpected error prevented loaing the requested figure'; });
-		} else return await fsp.readFile(path.normalize(Request_URL.pathname)).then(File => new Response(File)).catch(E => new Response('<h1>FAILED TO OPEN DOCUMENT</h1>'));
+		} else return await fsp.readFile(path.join(Parent_Directory, File)).then(File => new Response(File)).catch(E => new Response('<h1>FAILED TO OPEN DOCUMENT</h1>'));
 	});
 	let window = new electron.BrowserWindow({ webPreferences: {
 		nodeIntegration: false,
