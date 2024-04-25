@@ -127,7 +127,7 @@
 
 const Dynamic_Document_Linker = function (Revision, URL, View, Edit, GUI, Menu_Boilerplate) {
 	this.Revision = Revision;
-	if (URL[0] != '/') URL = '/' + URL;
+	if (URL[0]!='/')URL='/'+URL;
 	this.URL = `document://document${URL}`;
 	this.View = View;
 	this.Edit = Edit;

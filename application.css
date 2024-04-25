@@ -15,7 +15,7 @@ body {
 	margin: 0;
 	padding: 0;
 	width: 15rem;
-	height: 100vh;
+	height: 100vw;
 }
 #Menu {
 	user-select: none;

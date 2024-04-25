@@ -27,6 +27,7 @@ const Open = function (Path) {
 	window.loadFile('application.html');
 	window.webContents.on('will-navigate', E => E.preventDefault());
 	window.on('close', () => Open_Documents.delete(Path));
+	window.webContents.openDevTools();
 	return Path;
 }
 const Copy = function (Document, Elements) {
@@ -129,8 +130,8 @@ function init () {
 		let Parent_Directory = path.normalize(path.dirname(Request_URL.pathname).replace(/\/$/, ''));
 		if (Parent_Directory[0] == '\\') Parent_Directory = Parent_Directory.substring(2);
 		let File = path.basename(Request_URL.pathname);
-		console.log('here: ', Request_URL.pathname, path.normalize(Request_URL.pathname));
-		if (!Open_Documents.has(Parent_Directory)) return new Response('FAILED TO OPEN DOCUMENT');
+		console.log(Parent_Directory, File);
+		if (!Open_Documents.has(path.normalize(Parent_Directory))) return new Response('FAILED TO OPEN DOCUMENT');
 		else if (File.match(/^UNCONTROLLED_FIGURE.\d+/)) {
 			let Path = path.join(Parent_Directory, 'Uncontrolled_Figures', File);
 			return await fsp.readFile(Path).catch(async E => {

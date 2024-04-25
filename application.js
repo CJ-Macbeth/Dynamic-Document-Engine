@@ -84,7 +84,7 @@ const Latest = async function (Meta) {
 	else return Meta.Uncontrolled_Revisions[Meta.Uncontrolled_Revisions.length - 1];
 }
 
-const Main_Menu = new MGUI.Menu(...Menu_Boilerplate);
+const Main_Menu = new MGUI.Menu(Menu_Boilerplate);
 const init = function () {
 	window.addEventListener('message', E => {
 		let Revision = Object.keys(Open_Revisions).find(Revision => {
