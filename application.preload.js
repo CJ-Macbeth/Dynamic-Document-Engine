@@ -1,5 +1,7 @@
 const electron = require('electron');
+const docname = process.argv.find(E=>E.match(/^DOCNAME=/)).slice(8);
 electron.contextBridge.exposeInMainWorld('IPC', {
+	File_Reference: docname,
 	File_New: async () => {
 		return new Promise((Resolve, Reject) => {
 			electron.ipcRenderer.invoke('file:new').then(R => R.status ? Resolve(R.body) : Reject(R.body))

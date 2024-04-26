@@ -97,7 +97,7 @@ const init = function () {
 	GUI = new MGUI(document.getElementById('Menu'));
 	GUI.Navigate(Main_Menu);
 	IPC.File_Meta().then(Meta => {
-		Path = Meta.Path;
+		Path = IPC.File_Reference;
 		return Meta;
 	}).then(Latest).then(View_Revision);
 }

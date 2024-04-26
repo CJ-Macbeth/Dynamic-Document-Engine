@@ -4,7 +4,10 @@
   "description": "An engine for creating revision-controlled dynamic documents",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
@@ -17,7 +20,18 @@
   },
   "homepage": "https://github.com/CJ-Macbeth/Dynamic-Document-Engine#readme",
   "dependencies": {
-    "electron": "^28.1.4",
+    "electron-squirrel-startup": "^1.0.0",
     "jsdom": "^24.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
+    "electron": "^28.3.1"
   }
 }

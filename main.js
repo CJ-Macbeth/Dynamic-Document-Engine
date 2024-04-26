@@ -5,7 +5,11 @@ const electron = require('electron');
 //const Version  DYNAMICALLY LOAD VERSION FROM FILES
 const Dynamic_Document_File = require(path.join(__dirname, 'Dynamic_Document_File'));
 const Document_Symbol = Symbol();
-const Open_Documents = new Set();
+
+//const Open_Documents = new Set();
+const Open_Documents = new Object(null);
+var Document_ID = 1;
+
 //var Clipboard_Source = null;
 //var Clipboard = [];
 
@@ -14,19 +18,23 @@ var Clipboards = null;
 
 const Open = function (Path) {
 	// check/err, check rev
-	if (Open_Documents.has(Path)) return false;
-	Open_Documents.add(Path);
+	//if (Open_Documents.has(Path)) return false;
+	if (Path in Open_Documents) return false;
+	//Open_Documents.add(Path);
+	Open_Documents[Path] = 'document-' + Document_ID++;
 	let window = new electron.BrowserWindow({ webPreferences: {
 		nodeIntegration: false,
 		sandbox: true,
 		contextIsolation: true,
-		preload: path.join(__dirname, 'application.preload.js')
+		preload: path.join(__dirname, 'application.preload.js'),
+		additionalArguments: [`DOCNAME=${Open_Documents[Path]}`]
 	}});
 	window[Document_Symbol] = new Dynamic_Document_File(Path);
 	window.setMenuBarVisibility(false);
 	window.loadFile('application.html');
 	window.webContents.on('will-navigate', E => E.preventDefault());
-	window.on('close', () => Open_Documents.delete(Path));
+	//window.on('close', () => Open_Documents.delete(Path));
+	window.on('close', () => delete Open_Documents[Path]);
 	window.webContents.openDevTools();
 	return Path;
 }
@@ -125,7 +133,8 @@ function init () {
 		return IPCResponse(Copy(Document, Elements));
 	});
 	electron.protocol.handle('document',async request=>{
-		let Request_URL = new URL(request.url);
+
+		/*let Request_URL = new URL(request.url);
 		Request_URL.pathname = path.normalize(Request_URL.pathname);
 		let Parent_Directory = path.normalize(path.dirname(Request_URL.pathname).replace(/\/$/, ''));
 		if (Parent_Directory[0] == '\\') Parent_Directory = Parent_Directory.substring(2);
@@ -142,7 +151,25 @@ function init () {
 			return await fsp.readFile(Path).catch(async E => {
 				return await fsp.readFile(path.join(__dirname, 'Uncontrolled_Figures', 'UNCONTROLLED_FIGURE.1.png'))
 			}).then(File => new Response(File)).catch(E => { return 'An unexpected error prevented loaing the requested figure'; });
-		} else return await fsp.readFile(path.join(Parent_Directory, File)).then(File => new Response(File)).catch(E => new Response('<h1>FAILED TO OPEN DOCUMENT</h1>'));
+		} else return await fsp.readFile(path.join(Parent_Directory, File)).then(File => new Response(File)).catch(E => new Response('<h1>FAILED TO OPEN DOCUMENT</h1>'));*/
+	
+		let Request_URL = new URL(request.url);
+		let Document_From = Request_URL.hostname;
+		let File = path.basename(Request_URL.pathname);
+		let Document_Actual = Object.keys(Open_Documents).find(Key => Open_Documents[Key]==Document_From);
+		if (!Document_Actual) return new Response('Failed to find the document from the list');
+		else if (File.match(/^UNCONTROLLED_FIGURE.\d+/)) {
+			let Path = path.join(Document_Actual, 'Uncontrolled_Figures', File);
+			return await fsp.readFile(Path).catch(async E => {
+				return await fsp.readFile(path.join(__dirname, 'Uncontrolled_Figures', 'UNCONTROLLED_FIGURE.1.png'));
+			}).then(File => new Response(File)).catch(E => {return 'An unexpected error prevented loading the requested figure'});
+		} else if (File.match(/^FIGURE.\d+/)) {
+			let Path = path.join(Document_Actual, 'Figures', File);
+			return await fsp.readFile(Path).catch(async E => {
+				return await fsp.readFile(path.join(__dirname, 'Uncontrolled_Figures', 'UNCONTROLLED_FIGURE.1.png'));
+			}).then(File => new Response(File)).catch(E => {return 'An unexpected errer prevented loading the requested figure'});
+		} else return await fsp.readFile(path.join(Document_Actual, File)).then(File => new Response(File)).catch(E => new Response('Document resource/revision not found'));
+
 	});
 	let window = new electron.BrowserWindow({ webPreferences: {
 		nodeIntegration: false,
